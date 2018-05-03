@@ -1,16 +1,12 @@
 # Dockerized MiKTeX
 
-This image allows you to run MiKTeX on any computer that supports Docker.
+This image allows you to run MiKTeX on any computer that supports Docker. 
+In comparison to the original miktex/miktex docker image, this fork adds
+additional packages like picins (package for displaying images).
 
-## Obtaining the image
+## Building the image
 
-Get the latest image from the registry:
-
-    docker pull miktex/miktex
-
-or build it yourself:
-
-    docker build --tag miktex/miktex .
+    docker build -t miktex/miktex .
 
 ## Using the image
 

@@ -12,11 +12,30 @@ RUN apt-get install perl -y
 
 RUN initexmf --admin --force --mklinks
 RUN mpm --admin --install amsfonts
+
+RUN apt-get install wget -y
+
+ARG DIR=/usr/local/share/miktex-texmf/tex/latex/picins
+ENV TEXMFDBS=${DIR}
+
+RUN mkdir -p ${DIR} \
+    && cd ${DIR} \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/extpic.sty \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/mandel.msp \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/mexhat1.msp \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/mexhat2.msp \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/mpic.dvi \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/picins.alt \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/picins.doc \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/picins.sty \
+    && wget http://tug.ctan.org/tex-archive/macros/latex209/contrib/picins/picins.txt 
+
 RUN initexmf --admin --mkmaps
 RUN initexmf --admin --update-fndb
 
 RUN useradd -md /miktex miktex
-USER miktex
 RUN mkdir /miktex/work
 RUN mkdir /miktex/.miktex
+
+USER miktex
 WORKDIR /miktex/work
